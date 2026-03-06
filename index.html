@@ -15,7 +15,7 @@
 --bg-btn-hover:#3498db;
 --ia-btn:#2e1a47;
 --excel-btn: #1d6f42;
---logout-btn: #c0392b; /* Rojo para cerrar sesión */
+--logout-btn: #c0392b;
 --footer-color:#7f8c8d;
 --shadow:rgba(0,0,0,0.1);
 }
@@ -63,11 +63,19 @@ transition:background .4s ease;
     border-top: 5px solid var(--ia-btn);
 }
 
+/* Estilo para el logo dentro del login */
+.login-logo {
+    width: 230px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
 .login-box h3 {
     margin-top: 0;
     color: var(--texto-h2);
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-size: 1.1rem;
 }
 
 .login-box input {
@@ -118,7 +126,6 @@ max-height:100%;
 object-fit:contain;
 }
 
-/* GRUPO DE BOTONES SUPERIORES */
 .top-controls {
     position: fixed;
     top: 20px;
@@ -270,6 +277,8 @@ text-transform:uppercase;
 
 <div id="login-overlay">
     <div class="login-box">
+        <img src="https://ia800403.us.archive.org/27/items/chat-gpt-image-5-mar-2026-12-50-56-p.m./ChatGPT%20Image%205%20mar%202026%2C%2012_50_56%20p.m..png" alt="Logo" class="login-logo">
+        
         <h3>Acceso Privado</h3>
         <input type="text" id="userInput" placeholder="Usuario">
         <input type="password" id="passInput" placeholder="Contraseña">
@@ -331,7 +340,7 @@ function checkLogin() {
     const pass = document.getElementById("passInput").value;
     const error = document.getElementById("errorMsg");
 
-    if (user === "16508049" && pass === "mateo007.") {
+    if (user === "16508049" && pass === "mateo007") {
         sessionStorage.setItem("access", "true");
         showPanel();
     } else {
@@ -341,7 +350,7 @@ function checkLogin() {
 
 function logout() {
     sessionStorage.removeItem("access");
-    location.reload(); // Recarga la página para mostrar el login de nuevo
+    location.reload(); 
 }
 
 document.addEventListener('keypress', function (e) {
