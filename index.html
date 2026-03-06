@@ -1,264 +1,324 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel de Control Profesional</title>
-    <style>
-        :root {
-            --bg-body: #f4f7f6;
-            --bg-card: #ffffff;
-            --texto-h2: #1c1f24;
-            --bg-btn: #2c3e50;
-            --bg-btn-hover: #3498db;
-            --ia-btn: #2e1a47;
-            --footer-color: #7f8c8d;
-            --shadow: rgba(0,0,0,0.1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Control Profesional</title>
 
-        body.dark-mode {
-            --bg-body: #121417;
-            --bg-card: #1c1f24;
-            --texto-h2: #ffffff;
-            --bg-btn: #2c3e50;
-            --bg-btn-hover: #3498db;
-            --ia-btn: #2e1a47;
-            --footer-color: #5d646e;
-            --shadow: rgba(0,0,0,0.5);
-        }
+<style>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-body);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            transition: background 0.4s ease;
-        }
+:root{
+--bg-body:#f4f7f6;
+--bg-card:#ffffff;
+--texto-h2:#1c1f24;
+--bg-btn:#2c3e50;
+--bg-btn-hover:#3498db;
+--ia-btn:#2e1a47;
+--excel-btn: #1d6f42; /* Color verde tipo Excel */
+--footer-color:#7f8c8d;
+--shadow:rgba(0,0,0,0.1);
+}
 
-        .header-logo {
-            position: fixed;
-            top: 20px;
-            left: 100px;
-            width: 300px;
-            height: 300px;
-            background-color: transparent;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
+body.dark-mode{
+--bg-body:#121417;
+--bg-card:#1c1f24;
+--texto-h2:#ffffff;
+--bg-btn:#2c3e50;
+--bg-btn-hover:#3498db;
+--ia-btn:#2e1a47;
+--footer-color:#5d646e;
+--shadow:rgba(0,0,0,0.5);
+}
 
-        .header-logo img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            transition: filter 0.4s ease;
-        }
+body{
+font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+background-color:var(--bg-body);
+margin:0;
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:100vh;
+transition:background .4s ease;
+}
 
-        .theme-switch {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--bg-card);
-            padding: 10px 20px;
-            border-radius: 30px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 10px var(--shadow);
-            border: 1px solid #3498db;
-            font-weight: bold;
-            color: var(--texto-h2);
-            z-index: 1000;
-        }
+/* LOGO */
 
-        .container {
-            background-color: var(--bg-card);
-            padding: 40px 35px;
-            border-radius: 15px;
-            box-shadow: 0 15px 35px var(--shadow);
-            width: 100%;
-            max-width: 400px;
-            border-top: 5px solid #3498db;
-            text-align: center;
-            transition: background 0.4s ease;
-        }
+.header-logo{
+position:fixed;
+top:20px;
+left:30px;
+width:15vw;
+height:15vw;
+max-width:220px;
+max-height:220px;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
 
-        h2 {
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            color: var(--texto-h2);
-        }
+.header-logo img{
+max-width:100%;
+max-height:100%;
+object-fit:contain;
+}
 
-        .stack {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+/* BOTON MODO */
 
-        .btn-enlace {
-            background-color: var(--bg-btn);
-            color: white;
-            padding: 15px;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: 0.3s;
-            display: block;
-        }
+.theme-switch{
+position:fixed;
+top:20px;
+right:20px;
+background:var(--bg-card);
+padding:10px 20px;
+border-radius:30px;
+cursor:pointer;
+display:flex;
+align-items:center;
+gap:10px;
+box-shadow:0 4px 10px var(--shadow);
+border:1px solid #3498db;
+font-weight:bold;
+color:var(--texto-h2);
+z-index:1000;
+}
 
-        .btn-enlace:hover {
-            background-color: var(--bg-btn-hover);
-            transform: translateY(-2px);
-        }
+/* CONTENEDOR */
 
-        /* --- Estilos Mejorados Menú IA --- */
-        .ia-dropdown {
-            position: relative;
-            width: 100%;
-        }
+.container{
+background-color:var(--bg-card);
+padding:40px 35px;
+border-radius:15px;
+box-shadow:0 15px 35px var(--shadow);
+width:100%;
+max-width:400px;
+border-top:5px solid #3498db;
+text-align:center;
+transition:background .4s ease;
+}
 
-        .ia-btn {
-            width: 100%;
-            background-color: var(--ia-btn);
-            color: white;
-            padding: 16px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
-        }
+h2{
+font-size:1.1rem;
+letter-spacing:2px;
+text-transform:uppercase;
+margin-bottom:25px;
+color:var(--texto-h2);
+}
 
-        .ia-content {
-            display: none;
-            position: absolute;
-            width: 100%;
-            background-color: #25282e;
-            z-index: 10;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-            overflow: hidden;
-        }
+.stack{
+display:flex;
+flex-direction:column;
+gap:12px;
+}
 
-        .ia-content a {
-            color: white;
-            padding: 14px;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid #3a3f47;
-            font-weight: 600;
-            transition: 0.3s;
-        }
+.btn-enlace{
+background-color:var(--bg-btn);
+color:white;
+padding:15px;
+text-decoration:none;
+border-radius:8px;
+font-weight:600;
+font-size:14px;
+transition:.3s;
+display:block;
+}
 
-        /* Colores específicos al pasar el mouse */
-        .ia-content a.chatgpt:hover {
-            background-color: #10a37f; /* Verde ChatGPT */
-            color: white;
-        }
+.btn-enlace:hover{
+background-color:var(--bg-btn-hover);
+transform:translateY(-2px);
+}
 
-        .ia-content a.gemini:hover {
-            background-color: #4285f4; /* Azul Google */
-            color: white;
-        }
+/* Estilo especial para el Excel */
+.btn-excel {
+    background-color: var(--excel-btn);
+}
 
-        .ia-dropdown:hover .ia-content { display: block; }
-        .ia-dropdown:hover .ia-btn { border-radius: 8px 8px 0 0; }
+.btn-excel:hover {
+    background-color: #2b8c56;
+}
 
-        .floating-group {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
+/* IA MENU */
 
-        .float-btn {
-            width: 60px;
-            height: 60px;
-            background-color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-            transition: 0.3s;
-        }
+.ia-dropdown{
+position:relative;
+width:100%;
+}
 
-        .float-btn:hover { transform: scale(1.1); }
-        .float-btn img { width: 35px; height: 35px; }
+.ia-btn{
+width:100%;
+background-color:var(--ia-btn);
+color:white;
+padding:16px;
+border:none;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+text-transform:uppercase;
+}
 
-        footer {
-            margin-top: 25px;
-            font-size: 0.7rem;
-            color: var(--footer-color);
-            text-transform: uppercase;
-        }
-    </style>
+.ia-content{
+display:none;
+width:100%;
+background-color:#25282e;
+border-radius:0 0 8px 8px;
+overflow:hidden;
+}
+
+.ia-content a{
+color:white;
+padding:14px;
+text-decoration:none;
+display:block;
+border-bottom:1px solid #3a3f47;
+font-weight:600;
+transition:.3s;
+}
+
+.ia-content a.chatgpt:hover{
+background-color:#10a37f;
+}
+
+.ia-content a.gemini:hover{
+background-color:#4285f4;
+}
+
+/* BOTONES FLOTANTES */
+
+.floating-group{
+position:fixed;
+bottom:30px;
+right:30px;
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.float-btn{
+width:60px;
+height:60px;
+background:white;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+box-shadow:0 6px 20px rgba(0,0,0,0.2);
+transition:.3s;
+}
+
+.float-btn:hover{
+transform:scale(1.1);
+}
+
+.float-btn img{
+width:35px;
+height:35px;
+}
+
+/* FOOTER */
+
+footer{
+margin-top:25px;
+font-size:.7rem;
+color:var(--footer-color);
+text-transform:uppercase;
+}
+
+</style>
 </head>
+
 <body>
 
 <div class="header-logo">
-    <img src="https://ia800403.us.archive.org/27/items/chat-gpt-image-5-mar-2026-12-50-56-p.m./ChatGPT%20Image%205%20mar%202026%2C%2012_50_56%20p.m..png" alt="Logo">
+<img src="https://ia800403.us.archive.org/27/items/chat-gpt-image-5-mar-2026-12-50-56-p.m./ChatGPT%20Image%205%20mar%202026%2C%2012_50_56%20p.m..png">
 </div>
 
 <div class="theme-switch" onclick="toggleMode()">
-    <span id="theme-icon">🌙</span> <span id="theme-text">Modo Noche</span>
+<span id="theme-icon">🌙</span>
+<span id="theme-text">Modo Noche</span>
 </div>
 
 <div class="container">
-    <h2>Organizaciones Comunitarias</h2>
-    
-    <div class="stack">
-        <div class="ia-dropdown">
-            <button class="ia-btn">Inteligencia Artificial ▼</button>
-            <div class="ia-content">
-                <a href="https://chatgpt.com/" target="_blank" class="chatgpt">ChatGPT</a>
-                <a href="https://gemini.google.com/" target="_blank" class="gemini">Google Gemini</a>
-            </div>
-        </div>
 
-        <a href="https://home.municipalidadgorbea.cl/" target="_blank" class="btn-enlace">Municipalidad de Gorbea</a>
-        <a href="https://www.registrocivil.cl/principal/canal-tramites" target="_blank" class="btn-enlace">Trámites Registro Civil</a>
-        <a href="https://app.fondos.gob.cl/SisPostulacion/Postulacion/Bienvenida" target="_blank" class="btn-enlace">Portal Postulación Fondos</a>
-        <a href="https://fondos.gob.cl/ficha/mincap/ingreso2026/" target="_blank" class="btn-enlace">Ingreso Fondos 2026</a>
-        <a href="https://www.nombrerutyfirma.com/" target="_blank" class="btn-enlace">Nombre, RUT y Firma</a>
-        <a href="https://www.ilovepdf.com/" target="_blank" class="btn-enlace">Herramientas I Love PDF</a>
-    </div>
+<h2>Organizaciones Comunitarias</h2>
 
-    <footer>Sistema de Acceso Rápido</footer>
+<div class="stack">
+
+<div class="ia-dropdown">
+<button class="ia-btn" onclick="toggleIA()">Inteligencia Artificial ▼</button>
+<div class="ia-content" id="iaMenu">
+<a href="https://chatgpt.com/" target="_blank" class="chatgpt">ChatGPT</a>
+<a href="https://gemini.google.com/" target="_blank" class="gemini">Google Gemini</a>
+</div>
+</div>
+
+<a href="https://docs.google.com/spreadsheets/d/1YNBVIYSz913R0nKCwiWcarwIqiriTWfn8bL3vqWQylY/edit?usp=sharing_eip&ts=6995cdeb&urp=gmail_link" target="_blank" class="btn-enlace btn-excel">Base de datos Organizaciones comunitarias</a>
+
+<a href="https://home.municipalidadgorbea.cl/" target="_blank" class="btn-enlace">Municipalidad de Gorbea</a>
+<a href="https://www.registrocivil.cl/principal/canal-tramites" target="_blank" class="btn-enlace">Trámites Registro Civil</a>
+<a href="https://app.fondos.gob.cl/SisPostulacion/Postulacion/Bienvenida" target="_blank" class="btn-enlace">Portal Postulación Fondos</a>
+<a href="https://fondos.gob.cl/ficha/mincap/ingreso2026/" target="_blank" class="btn-enlace">Ingreso Fondos 2026</a>
+<a href="https://www.nombrerutyfirma.com/" target="_blank" class="btn-enlace">Nombre, RUT y Firma</a>
+<a href="https://www.ilovepdf.com/" target="_blank" class="btn-enlace">Herramientas I Love PDF</a>
+
+</div>
+
+<footer>Sistema de acceso rápido</footer>
+
 </div>
 
 <div class="floating-group">
-    <a href="https://mail.google.com/" target="_blank" class="float-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail"></a>
-    <a href="https://web.whatsapp.com/" target="_blank" class="float-btn"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp"></a>
+
+<a href="https://mail.google.com/" target="_blank" class="float-btn">
+<img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg">
+</a>
+
+<a href="https://web.whatsapp.com/" target="_blank" class="float-btn">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+</a>
+
 </div>
 
 <script>
-    function toggleMode() {
-        const body = document.body;
-        const icon = document.getElementById('theme-icon');
-        const text = document.getElementById('theme-text');
 
-        body.classList.toggle('dark-mode');
+/* MODO OSCURO */
+function toggleMode(){
+const body=document.body;
+const icon=document.getElementById('theme-icon');
+const text=document.getElementById('theme-text');
 
-        if (body.classList.contains('dark-mode')) {
-            icon.innerText = '☀️';
-            text.innerText = 'Modo Día';
-        } else {
-            icon.innerText = '🌙';
-            text.innerText = 'Modo Noche';
-        }
-    }
+body.classList.toggle('dark-mode');
+
+if(body.classList.contains('dark-mode')){
+icon.innerText='☀️';
+text.innerText='Modo Día';
+localStorage.setItem("modo","oscuro");
+}else{
+icon.innerText='🌙';
+text.innerText='Modo Noche';
+localStorage.setItem("modo","claro");
+}
+}
+
+/* RECORDAR MODO */
+window.onload=function(){
+const modo=localStorage.getItem("modo");
+if(modo==="oscuro"){
+document.body.classList.add("dark-mode");
+document.getElementById('theme-icon').innerText='☀️';
+document.getElementById('theme-text').innerText='Modo Día';
+}
+}
+
+/* MENU IA */
+function toggleIA(){
+const menu=document.getElementById("iaMenu");
+if(menu.style.display==="block"){
+menu.style.display="none";
+}else{
+menu.style.display="block";
+}
+}
+
 </script>
 
 </body>
