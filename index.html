@@ -15,6 +15,7 @@
 --bg-btn-hover:#3498db;
 --ia-btn:#2e1a47;
 --excel-btn: #1d6f42;
+--logout-btn: #c0392b; /* Rojo para cerrar sesión */
 --footer-color:#7f8c8d;
 --shadow:rgba(0,0,0,0.1);
 }
@@ -92,10 +93,6 @@ transition:background .4s ease;
     transition: 0.3s;
 }
 
-.btn-login:hover {
-    opacity: 0.9;
-}
-
 /* --- CONTENIDO PRINCIPAL --- */
 #main-content {
     display: none; 
@@ -121,22 +118,39 @@ max-height:100%;
 object-fit:contain;
 }
 
-.theme-switch{
-position:fixed;
-top:20px;
-right:20px;
-background:var(--bg-card);
-padding:10px 20px;
-border-radius:30px;
-cursor:pointer;
-display:flex;
-align-items:center;
-gap:10px;
-box-shadow:0 4px 10px var(--shadow);
-border:1px solid #3498db;
-font-weight:bold;
-color:var(--texto-h2);
-z-index:1000;
+/* GRUPO DE BOTONES SUPERIORES */
+.top-controls {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.theme-switch, .logout-action {
+    background: var(--bg-card);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px var(--shadow);
+    border: 1px solid #3498db;
+    font-weight: bold;
+    color: var(--texto-h2);
+    transition: 0.3s;
+}
+
+.logout-action {
+    border-color: var(--logout-btn);
+    color: var(--logout-btn);
+}
+
+.logout-action:hover {
+    background-color: var(--logout-btn);
+    color: white;
 }
 
 .container{
@@ -240,7 +254,6 @@ box-shadow:0 6px 20px rgba(0,0,0,0.2);
 transition:.3s;
 }
 
-.float-btn:hover{ transform:scale(1.1); }
 .float-btn img{ width:35px; height:35px; }
 
 footer{
@@ -270,9 +283,14 @@ text-transform:uppercase;
         <img src="https://ia800403.us.archive.org/27/items/chat-gpt-image-5-mar-2026-12-50-56-p.m./ChatGPT%20Image%205%20mar%202026%2C%2012_50_56%20p.m..png">
     </div>
 
-    <div class="theme-switch" onclick="toggleMode()">
-        <span id="theme-icon">🌙</span>
-        <span id="theme-text">Modo Noche</span>
+    <div class="top-controls">
+        <div class="theme-switch" onclick="toggleMode()">
+            <span id="theme-icon">🌙</span>
+            <span id="theme-text">Modo Noche</span>
+        </div>
+        <div class="logout-action" onclick="logout()">
+            <span>🚪 Cerrar Sesión</span>
+        </div>
     </div>
 
     <div class="container">
@@ -313,7 +331,6 @@ function checkLogin() {
     const pass = document.getElementById("passInput").value;
     const error = document.getElementById("errorMsg");
 
-    // Usuario: 16508049 | Clave: mateo007
     if (user === "16508049" && pass === "mateo007.") {
         sessionStorage.setItem("access", "true");
         showPanel();
@@ -322,7 +339,11 @@ function checkLogin() {
     }
 }
 
-// Permite ingresar presionando "Enter"
+function logout() {
+    sessionStorage.removeItem("access");
+    location.reload(); // Recarga la página para mostrar el login de nuevo
+}
+
 document.addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         checkLogin();
@@ -359,12 +380,13 @@ window.onload=function(){
     const modo=localStorage.getItem("modo");
     if(modo==="oscuro"){
         document.body.classList.add("dark-mode");
-        document.getElementById('theme-icon').innerText='☀️';
-        document.getElementById('theme-text').innerText='Modo Día';
+        if(document.getElementById('theme-icon')){
+            document.getElementById('theme-icon').innerText='☀️';
+            document.getElementById('theme-text').innerText='Modo Día';
+        }
     }
 }
 
-/* MENU IA */
 function toggleIA(){
     const menu=document.getElementById("iaMenu");
     menu.style.display = (menu.style.display === "block") ? "none" : "block";
