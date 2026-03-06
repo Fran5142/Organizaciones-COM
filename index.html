@@ -63,7 +63,6 @@ transition:background .4s ease;
     border-top: 5px solid var(--ia-btn);
 }
 
-/* Estilo para el logo dentro del login */
 .login-logo {
     width: 230px;
     height: auto;
@@ -334,17 +333,25 @@ text-transform:uppercase;
 </div>
 
 <script>
-/* SISTEMA DE LOGIN */
+/* SISTEMA DE LOGIN MULTIUSUARIO */
 function checkLogin() {
     const user = document.getElementById("userInput").value;
     const pass = document.getElementById("passInput").value;
     const error = document.getElementById("errorMsg");
 
-    if (user === "16508049" && pass === "mateo007.") {
+    // AQUÍ PUEDES AGREGAR TODOS LOS USUARIOS QUE QUIERAS
+    const usuariosPermitidos = {
+        "16508049": "mateo007.",  // Tu usuario principal
+        "18563173": "1234    // Segundo usuario de ejemplo
+        "admin": "2026"       // Tercer usuario de ejemplo
+    };
+
+    if (usuariosPermitidos[user] && usuariosPermitidos[user] === pass) {
         sessionStorage.setItem("access", "true");
         showPanel();
     } else {
         error.style.display = "block";
+        document.getElementById("passInput").value = ""; // Limpia clave si falla
     }
 }
 
@@ -404,4 +411,3 @@ function toggleIA(){
 
 </body>
 </html>
-
